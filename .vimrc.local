@@ -1,0 +1,74 @@
+set guifont=Source\ Code\ Pro\ for\ Powerline:h13
+
+" Key bindings
+map <C-e> :NERDTreeToggle<cr>
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+map <space> /
+map <C-u> :UndotreeToggle<cr>
+
+:nmap ; :
+
+Bundle 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'Syntastic'
+" Plugin 'AutoClose'
+Plugin 'christoomey/vim-tmux-navigator'
+
+" Natural splitting
+set splitbelow
+set splitright
+
+" NerdTree -  Open NerdTree to the same dir
+autocmd BufEnter * lcd %:p:h
+
+" NerdTree - coloring the file types
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+   exec 'autocmd filetype nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+    exec 'autocmd filetype nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+  endfunction
+
+call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#151515')
+call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#151515')
+call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Syntastic javascript
+let g:syntastic_javascript_checkers = ['standard']
+
+" Neocomplete at startup
+let g:neocomplete#enable_at_startup = 1
+
+" Dark
+set background=dark
+set relativenumber
+let g:tmux_navigator_save_on_switch = 1
+
+autocmd bufwritepost *.js silent !standard-format -w %
+set autoread
+
+let g:ctrlp_custom_ignore = 'node_modules'
+

@@ -1,0 +1,33 @@
+[user]
+	email = me@nicola.io
+	name = nicola
+	signingkey = A8424F55
+[credential]
+	helper = osxkeychain
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[push]
+	default = simple
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+[core]
+	pager = diff-so-fancy | less --tabs=1,5 -R
+[log]
+	decorate = short
+[color]
+	ui = auto
+	interactive = auto
+	diff = auto
+	branch = auto
+	status = auto
+[pager]
+	status = false
+	show-branch = true
+[format]
+	numbered = auto
+[alias]
+	amend = commit --amend
+	tree = log --graph --decorate --pretty=oneline --abbrev-commit --all
